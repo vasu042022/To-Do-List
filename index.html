@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /* background-color: grey; */
+            margin: 0;
+            padding: 0;
+            background-image: url(https://images.pexels.com/photos/20602820/pexels-photo-20602820/free-photo-of-cup-of-coffee-on-to-dog-list.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+        }
+
+        .container {
+            margin: 20px auto;
+            max-width: 550px;
+            background-color: lightblue;
+            box-shadow: 0 0 8 rgba(0, 0, 0, 1);
+            border: 1px solid black;
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .todo-form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .todo-input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid black;
+        }
+
+        .todo-list {
+            list-style: none;
+            padding: 0;
+            /* border: 1px dotted black; */
+        }
+
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid white;
+            padding: 10px 0;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            background-color: salmon;
+        }
+
+        .todo-item:last-child {
+            border-bottom: none;
+        }
+
+        .todo-item-text {
+            flex: 1;
+            margin-left: 5px;
+
+        }
+
+        .todo-item-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            margin-right: 5px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .done {
+            background-color: green !important;
+            text-decoration: line-through !important;
+            /* border: 1px dotted black; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1> To do List</h1>
+        <form class="todo-form" id="todo-form">
+            <input type="text" class="todo-input" id="todo-input" placeholder="Add a new task">
+        </form>
+        <ul class="todo-list" id="todo-list">
+            <li type=""></li>
+        </ul>
+    </div>
+    <script>
+        const form = document.getElementById('todo-form');
+        const input = document.getElementById('todo-input');
+        const list = document.getElementById('todo-list');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const todoText = input.value.trim();
+            if (todoText !== '') {
+                addTodoItem(todoText);
+                input.value = '';
+            }
+        });
+
+        function addTodoItem(todoText) {
+            var todoo = document.createElement('li');
+            todoo.classList.add('todo-item');
+            todoo.innerHTML = `
+      <span class="todo-item-text">${todoText}</span>
+      <button class="todo-item-btn">Remove</button>`;
+            list.appendChild(todoo);
+            console.log(todoo.children);
+
+            todoo.addEventListener(
+            "click",
+            function(e){
+                todoo.classList.toggle("done")
+            }
+        )
+        }
+
+        list.addEventListener('click', function (e) {
+            if (e.target.classList.contains('todo-item-btn')) {
+                e.target.parentElement.remove();
+            }
+        });
+
+
+
+    </script>
+</body>
+
+</html>
